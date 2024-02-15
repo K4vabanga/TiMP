@@ -1,0 +1,84 @@
+body, h1, h2, h3, h4, p, a {
+  margin: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.header {
+  height: 100vh;
+  background-color: #eee;
+  background-image: url(https://journal.ib-bank.ru/files/images/posts/cyber-security-3443625_1280.jpg);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 140px;
+  margin: auto;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.overlay {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.content {
+  margin: 100px auto 50px;
+  font-size:0;
+  width: 790px;
+}
+
+.card {
+  display: inline-block;
+  width: 350px;
+  margin-bottom: 60px;
+  margin-right: 90px;
+  padding: 45px 45px 70px;
+  box-shadow: 4px 4px 5px rgba(250, 50, 50, .4);
+}
+
+.no-right-margin {
+  margin-right: 0;
+}
+
+.card-title {
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.card-text {
+  font-size: 16px;
+}
+
+.card-image {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  height: 300px;
+  background-color: #000;
+}
+
+.footer-author {
+  margin: auto;
+  font-size: 24px;
+  color: #fff;
+  ont-family: 'Helvetica', 'Arial', sans-serif;
+}
